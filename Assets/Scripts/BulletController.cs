@@ -8,9 +8,17 @@ public class BulletController : MonoBehaviour {
     {
         var hit = collision.gameObject;
         var health = hit.GetComponent<Health>();
+        if (health == null) 
+            
         if (health != null)
         {
             health.TakeDamage(10);
+        } else {
+            var nhealth = hit.GetComponent<NetworkedHealth>();
+            if (nhealth != null)
+                {
+                    nhealth.TakeDamage(10);
+                }
         }
 
         Destroy(gameObject);
