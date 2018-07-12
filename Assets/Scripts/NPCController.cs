@@ -39,10 +39,12 @@ public class NPCController : NetworkBehaviour
     {
 
         float count = 0;
+        float rotationSpeed = Random.Range(-90, 90);
         while (count < speed)
         {
             count += Time.deltaTime;
-            this.transform.position = Vector3.Lerp(lastPosition, nextPosition, count / speed);
+            this.transform.position = Vector3.Lerp(lastPosition, nextPosition, Mathf.SmoothStep(0,1, count / speed));
+            this.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
             yield return null;
         }
         walking = false;
