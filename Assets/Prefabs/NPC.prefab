@@ -459,6 +459,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1782202791406418, guid: 2839943ac1b67409a85dfc55552ccb37,
     type: 2}
   bulletSpawn: {fileID: 4245316780199670}
+  lastPosition: {x: 0, y: 0, z: 0}
+  nextPosition: {x: 0, y: 0, z: 0}
+  speed: 1
 --- !u!114 &114411457702425512
 MonoBehaviour:
   m_ObjectHideFlags: 1
