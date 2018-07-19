@@ -518,6 +518,12 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1782202791406418, guid: 2839943ac1b67409a85dfc55552ccb37,
     type: 2}
   bulletSpawn: {fileID: 4481084683274820}
+  cameraTransform: {fileID: 0}
+  visorTransform: {fileID: 0}
+  TiltingSpeed: 5
+  isWalking: 0
+  direction: {x: 0, y: 0, z: 0}
+  _thresholdAngle: 18
 --- !u!136 &136196543786323432
 CapsuleCollider:
   m_ObjectHideFlags: 1

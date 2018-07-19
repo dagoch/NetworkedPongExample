@@ -478,6 +478,12 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1782202791406418, guid: 2839943ac1b67409a85dfc55552ccb37,
     type: 2}
   bulletSpawn: {fileID: 4102495334660704}
+  cameraTransform: {fileID: 0}
+  visorTransform: {fileID: 0}
+  TiltingSpeed: 5
+  isWalking: 0
+  direction: {x: 0, y: 0, z: 0}
+  _thresholdAngle: 18
 --- !u!114 &114811693623792696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -516,6 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 096917c5e06c14c1797549f97b7ce8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyOnDeath: 0
   currentHealth: 100
   healthText: {fileID: 114367549408715574}
 --- !u!136 &136427474508557622

@@ -8,6 +8,33 @@ public class PlayerController : NetworkBehaviour
     public Transform cameraTransform;
     public Transform visorTransform;
 
+    public float ThresholdAngle
+    {
+        get
+        {
+            return _thresholdAngle;
+        }
+        set
+        {
+            _thresholdAngle = value;
+            _thresholdMagnitude = Mathf.Sin(ThresholdAngle * Mathf.Deg2Rad);
+        }
+    }
+
+    public float TiltingSpeed = 5.0f;
+
+    public bool isWalking = false;
+
+    public Vector3 direction;
+
+    [Tooltip("If the tilting angle is below the threshold, player will not move")]
+    [SerializeField]
+    private float _thresholdAngle = 15f;
+
+    private float _thresholdMagnitude;
+
+
+
     public override void OnStartLocalPlayer()
     {
         GetComponent<Renderer>().material.color = Color.blue;
@@ -16,6 +43,7 @@ public class PlayerController : NetworkBehaviour
         visorTransform = transform.Find("Visor");
         Camera.main.transform.position = visorTransform.position;
         Debug.Log("start local player: visor position = " + visorTransform.position + " camera posn = " + Camera.main.transform.position);
+        _thresholdMagnitude = Mathf.Sin(ThresholdAngle * Mathf.Deg2Rad);
     }
 
     void Update()
@@ -25,9 +53,31 @@ public class PlayerController : NetworkBehaviour
             return;
         }
 
+        isWalking = false;
+        float yOffset = transform.position.y;
+
+        Vector3 tilt = cameraTransform.up;
+        tilt.y = 0;
+        if (tilt.magnitude > _thresholdMagnitude)
+        {
+            isWalking = true;
+        //    Vector3 dir = (cameraTransform.localEulerAngles - Vector3.up);
+        //    dir.y = 0;
+        //    transform.Translate(dir * TiltingSpeed * Time.deltaTime);
+
+            direction = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized * TiltingSpeed * Time.deltaTime;
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, -transform.rotation.eulerAngles.y, 0));
+            transform.Translate(rotation * direction);
+  
+            transform.position = new Vector3(transform.position.x, yOffset, transform.position.z);
+        }
 
         // rotate the player to match the camera's rotation (controlled by GoogleVR)
-        transform.rotation = cameraTransform.rotation;
+        Vector3 yrot = cameraTransform.rotation.eulerAngles;
+        yrot.x = 0;
+        yrot.z = 0;
+        transform.eulerAngles = yrot;
+//        transform.rotation = cameraTransform.rotation;
 
 
         // move the player according to input
@@ -63,4 +113,9 @@ public class PlayerController : NetworkBehaviour
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);
     }
+
+
+
+
+
 }
