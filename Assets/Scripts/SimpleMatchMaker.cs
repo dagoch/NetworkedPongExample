@@ -4,6 +4,9 @@ using UnityEngine.Networking.Match;
 using System.Collections.Generic;
 
 public class SimpleMatchMaker : MonoBehaviour {
+
+    public GameObject matchButtonCanvas;
+
     void Start() {
         NetworkManager.singleton.StartMatchMaker();
     }
@@ -58,6 +61,8 @@ public class SimpleMatchMaker : MonoBehaviour {
 
             MatchInfo hostInfo = matchInfo;
             NetworkManager.singleton.StartClient(hostInfo);
+
+            matchButtonCanvas.SetActive(false);
         }
         else {
             Debug.LogError("Join match failed");
