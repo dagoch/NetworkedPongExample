@@ -6,6 +6,7 @@ public class PlayerController : NetworkBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public Transform cameraTransform;
+    public Transform cameraContainerTransform;
     public Transform visorTransform;
 
     public float ThresholdAngle
@@ -39,10 +40,11 @@ public class PlayerController : NetworkBehaviour
     {
         GetComponent<Renderer>().material.color = Color.blue;
         cameraTransform = Camera.main.transform;
-        //Camera.main.transform.parent = transform;
+        cameraContainerTransform = cameraTransform.parent;
+
         visorTransform = transform.Find("Visor");
-        Camera.main.transform.position = visorTransform.position;
-        Debug.Log("start local player: visor position = " + visorTransform.position + " camera posn = " + Camera.main.transform.position);
+        cameraContainerTransform.position = visorTransform.position;
+        Debug.Log("start local player: visor position = " + visorTransform.position + " camera posn = " + cameraContainerTransform.position);
         _thresholdMagnitude = Mathf.Sin(ThresholdAngle * Mathf.Deg2Rad);
     }
 
@@ -61,9 +63,6 @@ public class PlayerController : NetworkBehaviour
         if (tilt.magnitude > _thresholdMagnitude)
         {
             isWalking = true;
-        //    Vector3 dir = (cameraTransform.localEulerAngles - Vector3.up);
-        //    dir.y = 0;
-        //    transform.Translate(dir * TiltingSpeed * Time.deltaTime);
 
             direction = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized * TiltingSpeed * Time.deltaTime;
             Quaternion rotation = Quaternion.Euler(new Vector3(0, -transform.rotation.eulerAngles.y, 0));
@@ -74,6 +73,7 @@ public class PlayerController : NetworkBehaviour
 
         // rotate the player to match the camera's rotation (controlled by GoogleVR)
         Vector3 yrot = cameraTransform.rotation.eulerAngles;
+        // only rotate around y axis
         yrot.x = 0;
         yrot.z = 0;
         transform.eulerAngles = yrot;
@@ -85,7 +85,7 @@ public class PlayerController : NetworkBehaviour
         transform.Translate(0, 0, z); 
 
         // move the camera to match the player's position
-        cameraTransform.position = visorTransform.position;
+        cameraContainerTransform.position = visorTransform.position;
 
         if (Input.GetKeyDown(KeyCode.Space)  || Input.GetMouseButtonUp(0)) // || Input.GetMouseButton(0)
         {

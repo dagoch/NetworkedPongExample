@@ -479,11 +479,12 @@ MonoBehaviour:
     type: 2}
   bulletSpawn: {fileID: 4102495334660704}
   cameraTransform: {fileID: 0}
+  cameraContainerTransform: {fileID: 0}
   visorTransform: {fileID: 0}
   TiltingSpeed: 2
   isWalking: 0
   direction: {x: 0, y: 0, z: 0}
-  _thresholdAngle: 18
+  _thresholdAngle: 22
 --- !u!114 &114811693623792696
 MonoBehaviour:
   m_ObjectHideFlags: 1
