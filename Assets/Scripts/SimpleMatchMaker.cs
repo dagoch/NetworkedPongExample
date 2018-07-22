@@ -25,6 +25,7 @@ public class SimpleMatchMaker : MonoBehaviour {
             NetworkServer.Listen(hostInfo, 9000);
 
             NetworkManager.singleton.StartHost(hostInfo);
+            matchButtonCanvas.SetActive(false);
         }
         else {
             Debug.LogError("Create match failed");

@@ -480,7 +480,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 4102495334660704}
   cameraTransform: {fileID: 0}
   visorTransform: {fileID: 0}
-  TiltingSpeed: 5
+  TiltingSpeed: 2
   isWalking: 0
   direction: {x: 0, y: 0, z: 0}
   _thresholdAngle: 18
