@@ -142,8 +142,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950686ec42eec40ac8a24aca0d5422cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounds: {x: 1, y: 5}
-  speed: 1
+  bounds: {x: 1.68, y: 4.3}
+  speed: 0.1
+  paddles:
+  - {fileID: 0}
+  - {fileID: 0}
+  scoreA: 0
+  scoreB: 0
 --- !u!114 &114785753379633498
 MonoBehaviour:
   m_ObjectHideFlags: 1
