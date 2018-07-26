@@ -7,6 +7,9 @@ using UnityEngine.Networking;
 public class PongBallManager : NetworkBehaviour {
 
     public GameObject ball;
+    GameObject pongBall;
+    public string score;
+    TextMesh text;
 
     void Start () {
 		
@@ -17,13 +20,16 @@ public class PongBallManager : NetworkBehaviour {
         {
             CmdFire();
         }
+        if (pongBall != null) ;
+            score = "Score/nPlayer 1: " + pongBall.GetComponent<PongBallController>().scoreA +
+                    "Player 2: " + pongBall.GetComponent<PongBallController>().scoreB;
 	}
 
     [Command]
     void CmdFire()
     {
         // Create the Bullet from the Bullet Prefab
-        var pongBall = Instantiate(ball);
+        pongBall = Instantiate(ball);
 
         // Spawn the bullet on the Clients
         NetworkServer.Spawn(pongBall);
